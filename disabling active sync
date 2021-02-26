@@ -1,0 +1,4 @@
+#Disabling activeSync for a given user
+#this will disable on Prem Ad to Office365, for the given user
+Set-CASMailbox -Identity <Mailbox ID> -ActiveSyncEnabled $False
+Set-CasMailbox -Identity "Yan Li" -ActiveSyncEnabled $false
