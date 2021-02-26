@@ -1,0 +1,16 @@
+#set the excution policy to allow powershell script to run on local machine
+Set-ExecutionPolicy unrestricted
+install MSOnline
+
+#prompt to get the login Credential's to login to microsoft exchange
+$UserCredential = Get-Credential
+$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://outlook.office365.com/powershell-liveid/ -Credential $UserCredential -Authentication Basic -AllowRedirection
+Import-PSSession $Session
+
+#Get-MailboxPermission -Identity register@liv.asn.au -User sbell | fl
+
+Remove-MailboxPermission -Identity lreception@liv.asn.au -User kleris -AccessRights FullAccess  
+
+Add-MailboxPermission -Identity lreception@liv.asn.au -User kleris -AccessRights FullAccess -AutoMapping $false
+
+Remove-PSSession $Session #remove session once finished, so that you can connect back in to office365 again due to 3 max connctions per session allowed
